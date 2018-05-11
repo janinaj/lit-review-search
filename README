@@ -1,0 +1,14 @@
+
+BibTex Citation
+
+@inproceedings{SarolLS18,
+  author    = {Maria Janina Sarol and
+               Linxi Liu and
+               Jodi Schneider},
+  title     = {Testing a Citation and Text-Based Framework for Retrieving Publications for Literature Reviews},
+  booktitle = {Proceedings of the 7th International Workshop on Bibliometric-enhanced
+               Information Retrieval},
+  pages     = {22--33},
+  year      = {2018},
+  url       = {http://ceur-ws.org/Vol-2080/paper3.pdf}
+}
