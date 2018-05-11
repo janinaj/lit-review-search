@@ -43,9 +43,10 @@ def get_strong_citation_relationship(scopus_pub, shared):
 def main():
     shared = 0.10
     year = 2013
-    review = ''
-    studies_folder = ''
-    output_folder = ''
+
+    review = '84925226708'
+    studies_folder = 'data/included-studies'
+    output_folder = 'data/scopus-download'
 
     print('Getting list of included studies..')
     seeds = []
