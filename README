@@ -2,6 +2,14 @@ Requirements:
 1. Python version 2
 2. Scopus API (with permission to collect citation information)
 
+Steps:
+
+1. Modify the following variables in run.py:
+
+    review = scopus_id_of_review_file
+    studies_folder = /path/to/folder/containing/included/studies
+    output_folder = /path/to/output/folder
+
 Link to full paper: http://ceur-ws.org/Vol-2080/paper3.pdf
 
 BibTex Citation
