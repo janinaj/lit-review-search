@@ -14,6 +14,7 @@ Link to full paper: http://ceur-ws.org/Vol-2080/paper3.pdf
 
 BibTex Citation
 
+```
 @inproceedings{SarolLS18,
   author    = {Maria Janina Sarol and
                Linxi Liu and
@@ -25,3 +26,4 @@ BibTex Citation
   year      = {2018},
   url       = {http://ceur-ws.org/Vol-2080/paper3.pdf}
 }
+```
