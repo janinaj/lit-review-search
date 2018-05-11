@@ -1,3 +1,8 @@
+Requirements:
+1. Python version 2
+2. Scopus API (with permission to collect citation information)
+
+Link to full paper: http://ceur-ws.org/Vol-2080/paper3.pdf
 
 BibTex Citation
 
