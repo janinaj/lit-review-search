@@ -1,5 +1,6 @@
 from lxml import etree
 from datetime import datetime
+from collections import defaultdict
 import os, json, urllib2, time, xml.etree.ElementTree as ET
 
 API_KEY = ''
@@ -28,11 +29,19 @@ class ScopusPublication():
 
     @property
     def co_citing_eids(self):
-        return self.co_citing_eids_
+        return self.co_citing_counts_.keys()
+
+    @property
+    def co_citing_counts(self):
+        return self.co_citing_counts_
 
     @property
     def co_cited_eids(self):
-        return self.co_cited_eids_
+        return self.co_cited_counts_.keys()
+
+    @property
+    def co_cited_counts(self):
+        return self.co_cited_counts_
 
     @property
     def abstract(self):
@@ -53,8 +62,8 @@ class ScopusPublication():
 
         self.references_ = []
         self.citations_ = []
-        self.co_citing_eids_ = []
-        self.co_cited_eids_ = []
+        self.co_citing_counts_ = defaultdict(int)
+        self.co_cited_counts_ = defaultdict(int)
 
         reference_file = os.path.join(data_folder, self.eid_, 'references.xml')
 
@@ -213,24 +222,21 @@ class ScopusPublication():
                 filtered_citations.append(citation)
 
         self.citations_ = filtered_citations
-        self.get_cociting_eids() #update co
+        self.get_cociting_eids()
 
 
     def get_cociting_eids(self):
-        co_citing_eids = {}
-
         for reference in self.references_:
             pub = ScopusPublication(self.data_folder_, reference['eid'])
 
             for citation in pub.citations:
                 if citation['eid'] != self.eid_:
-                    if citation['eid'] not in co_citing_eids.keys():
-                        co_citing_eids[citation['eid']] = citation
-                        co_citing_eids[citation['eid']]['count'] = 0
-
-                    co_citing_eids[citation['eid']]['count'] += 1
-
-        self.co_citing_eids = co_citing_eids.values()
+                    self.co_citing_counts_[citation['eid']] += 1
 
     def get_co_cited_eids(self):
-        pass
+        for citation in self.citations_:
+            pub = ScopusPublication(self.data_folder_, citation['eid'])
+
+            for reference in pub.references:
+                if reference['eid'] != self.eid_:
+                    self.co_cited_counts_[citation['eid']] += 1

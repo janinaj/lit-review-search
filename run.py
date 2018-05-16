@@ -5,7 +5,7 @@ def get_strong_co_citing(scopus_pub, shared):
     min_count = math.ceil(scopus_pub.reference_count * shared)
 
     eids = []
-    for eid, count in seed.co_citing_counts.items():
+    for eid, count in scopus_pub.co_citing_counts.items():
             if count >= min_count:
                 eids.append(eid)
 
@@ -32,8 +32,6 @@ def get_strong_citation_relationship(scopus_pub, shared):
 
     scopus_pub.strong_cit_pubs.union(get_strong_co_citing(scopus_pub, shared))
     scopus_pub.strong_cit_pubs.union(get_strong_co_cited(scopus_pub, shared))
-
-    # strong_pubs = set(co_citing).union(co_cited)
 
     # with open(os.path.join('data', eid, 'top_shared_' + str(top) + '_' + citation_type + '.txt'), 'w') as o:
     #     for top_pub in top_pubs:
@@ -62,7 +60,6 @@ def main():
 
     print('Getting strong citation relationships..')
     for seed in seeds:
-        #if not os.path.exists()
         get_strong_citation_relationship(scopus_pubs[seed], shared)
 
 
