@@ -56,7 +56,7 @@ class ScopusPublication():
         self.data_folder_ = data_folder
         self.pub_directory_ = os.path.join(data_folder, self.eid_)
         
-        #create publication directory if it does not exist yet
+        #create publication directory if it does not exist
         if not os.path.exists(self.pub_directory_):
             os.makedirs(self.pub_directory_)
 
@@ -67,7 +67,7 @@ class ScopusPublication():
 
         reference_file = os.path.join(data_folder, self.eid_, 'references.xml')
 
-        # download file containing references and abstract if it does not exist
+        # download Scopus abstract file (also contains references) if it does not exist
         if not os.path.exists(reference_file):
             self.download_reference_file(reference_file)
         
@@ -213,6 +213,7 @@ class ScopusPublication():
         except urllib2.HTTPError:
             print('Error getting citations: ' + self.eid)
 
+        # second delay for each request to Scopus
         time.sleep(5)
 
     def filter_citations(self, year):
