@@ -4,10 +4,12 @@ from scopus_publication import ScopusPublication
 def main():
     shared = 0.10
     year = 2018
+
     review = 'seeds'
     studies_folder = ''
-    output_folder = ''
+    data_folder = ''
     topic_output_folder = ''
+    output_file = 'rake_results.csv'
 
     print('Getting list of included studies..')
     seeds = []
@@ -18,22 +20,22 @@ def main():
     print('Getting citation space..')
     scopus_pubs = {}
     for seed in seeds:
-        scopus_pubs[seed] = ScopusPublication(output_folder, seed)
+        scopus_pubs[seed] = ScopusPublication(data_folder, seed)
         scopus_pubs[seed].filter_citations(year)
         scopus_pubs[seed].get_co_cited_eids()
         
 
     print('Getting strong citation relationships..')
-    strong_related_pub_eids = set()
+    strong_cite_related_pub_eids = set()
     for seed in seeds:
-        strong_related_pub_eids = strong_related_pub_eids.union(get_strong_citation_relationship(scopus_pubs[seed], shared))
+        strong_cite_related_pub_eids = strong_cite_related_pub_eids.union(citation_filtering.get_strong_citation_relationship(scopus_pubs[seed], shared))
 
-    strong_related_pubs = []
-    for eid in strong_related_pub_eids:
-        strong_related_pubs.append(ScopusPublication(output_folder, eid, False))
+    strong_cite_related_pubs = []
+    for eid in strong_cite_related_pub_eids:
+        strong_cite_related_pubs.append(ScopusPublication(data_folder, eid, False))
 
     print('Getting topics..')
-    get_topics(topic_output_folder, strong_related_pubs)
+    topic_filtering.get_topics(topic_output_folder, strong_cite_related_pubs)
 
     print('Clustering documents..')
     cluster_documents(topic_output_folder, strong_related_pubs)

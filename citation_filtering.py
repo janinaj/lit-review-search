@@ -12,10 +12,10 @@ def get_strong_co_citing(scopus_pub, shared):
     return eids
 
 def get_strong_co_cited(scopus_pub, shared):
-    min_count = math.ceil(seed.citation_count * shared)
+    min_count = math.ceil(scopus_pub.citation_count * shared)
     
     eids = []
-    for eid, count in seed.co_cited_counts.items():
+    for eid, count in scopus_pub.co_cited_counts.items():
         if count >= min_count:
             eids.append(eid)
 
@@ -25,10 +25,10 @@ def get_strong_citation_relationship(scopus_pub, shared, store = False, overwrit
     strong_related_pub_eids = set()
 
     for reference in scopus_pub.references_:
-        scopus_pub.strong_cit_pubs.add(reference['eid'])
+        strong_related_pub_eids.add(reference['eid'])
 
     for citation in scopus_pub.citations_:
-        scopus_pub.strong_cit_pubs.add(citation['eid'])
+        strong_related_pub_eids.add(citation['eid'])
 
     strong_related_pub_eids = strong_related_pub_eids.union(get_strong_co_citing(scopus_pub, shared))
     strong_related_pub_eids = strong_related_pub_eids.union(get_strong_co_cited(scopus_pub, shared))
